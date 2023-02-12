@@ -1,0 +1,15 @@
+{
+  "name": "chart-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "phani",
+  "license": "ISC",
+  "dependencies": {
+    "add": "^2.0.6",
+    "aws-lambda": "^1.0.7"
+  }
+}
