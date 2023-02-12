@@ -1,5 +1,25 @@
-service: serverless-chart
-frameworkVersion: "2"
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: serverless-chat
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: "3"
+
 provider:
   name: aws
   runtime: nodejs14.x
@@ -13,7 +33,7 @@ provider:
           - ".execute-api."
           - Ref: AWS::Region
           - ".amazonaws.com/${sls:stage}"
-  
+
   iam:
     role:
       statements:
@@ -54,7 +74,7 @@ provider:
 
 functions:
   websocketHandler:
-    handler: src/handler.handle
+    handler: src/handlers.handle
     events:
       - websocket:
           route: $connect
@@ -66,8 +86,10 @@ functions:
           route: sendMessage
       - websocket:
           route: getClients
+
 plugins:
-  - serverless-plugin-typscript
+  - serverless-plugin-typescript
+
 resources:
   Resources:
     ClientsTable:
@@ -117,12 +139,12 @@ resources:
         GlobalSecondaryIndexes:
           - IndexName: NicknameToNicknameIndex
             KeySchema:
-              - AttributeName: nicknameToNickname 
+              - AttributeName: nicknameToNickname
                 KeyType: HASH
-              - AttributeName: createdAT
+              - AttributeName: createdAt
                 KeyType: RANGE
             ProvisionedThroughput:
               ReadCapacityUnits: 1
               WriteCapacityUnits: 1
             Projection:
-              ProjectionType: "ALL"  
+              ProjectionType: "ALL"
